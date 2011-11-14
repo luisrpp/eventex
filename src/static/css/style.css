@@ -38,6 +38,22 @@ header #logo {
     text-decoration: underline;
 }
 
+.hidetext {
+    font-size:0;
+    line-height:0;
+    text-indent:-9999px;
+}
+
+#djangologo {
+    background: #fff url('../img/djangomade124x25.gif') no-repeat top center;
+    width:124px;
+    height:25px;
+    margin-right:20px;
+    margin-top:10px;
+    display:block;
+    float:right;
+}
+
 footer {
     font-size:14px;
     padding-left:20px;

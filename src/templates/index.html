@@ -1,33 +1,11 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <title>EventeX - O evento mais sensacional do ano!</title>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <meta name="description" content="Welcome to the Django - Sprint 01">
-    <meta name="author" content="Luis Roberto Pereira de Paula">
-
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css" media="screen" />
-</head>
-<body>
-<div id="container">
-    <header>
-        <div id="logo">&nbsp;</div>
-    </header>
-    <div id="main">
+{% extends 'base.html' %}
+{% block content %}
         <h1>Bem-vindo ao EventeX</h1>
         <p>O evento mais sensacional do ano!</p>
         <img src="{{ STATIC_URL }}img/xfiles.jpg">
         <p>Você não pode perder essa oportunidade!</p>
-        <p><strong>Abertura das inscrições em 20/11/2011.</strong></p>
+        <p><strong>
+            <a href="{% url subscriptions:subscribe %}">Inscreva-se já!</a>
+        </strong></p>
         <p>Para dúvidas e mais informações entre em contato com <a href="#">eventex@eventex.com.br</a>.</p>
-    </div>
-    <footer>
-        <a href="https://www.djangoproject.com" id="djangologo" class="hidetext" title="Powered by Django">Powered by Django</a>
-        <p>&copy; 2010 <a href="/">EventeX</a>. Some rights reserved.</p>
-    </footer>
-</div>
-
-<script src="{{ STATIC_URL }}js/jquery-1.7.min.js" type="text/javascript"></script>
-
-</body>
-</html>
+{% endblock content %}

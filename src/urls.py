@@ -1,9 +1,12 @@
 from django.conf.urls.defaults import patterns, include, url
-from core.views import homepage
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.contrib import admin
+admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^$', homepage),
+    (r'^admin/', include(admin.site.urls)),
+    (r'^$', 'core.views.homepage', {'template': 'index.html'}),
+    (r'^inscricao/', include('subscriptions.urls', namespace='subscriptions')),
 )
 
 urlpatterns += staticfiles_urlpatterns()

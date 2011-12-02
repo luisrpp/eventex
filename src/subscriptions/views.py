@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.conf import settings
 from subscriptions.forms import SubscriptionForm
+from subscriptions.forms import Subscription
 
 def subscribe(request):
     if request.method == 'POST':

@@ -2,12 +2,43 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.localflavor.br.forms import BRCPFField
+from django.core.validators import EMPTY_VALUES
 from subscriptions.models import Subscription
-from subscriptions.validators import CpfValidator
+
+class PhoneWidget(forms.MultiWidget):
+    def __init__(self, attrs=None):
+        widgets=(
+            forms.TextInput(attrs=attrs),
+            forms.TextInput(attrs=attrs))
+        super(PhoneWidget, self).__init__(widgets, attrs)
+
+    def decompress (self, value):
+        if not value:
+            return [None, None]
+        return value.split('-')
+
+class PhoneField(forms.MultiValueField):
+    widget=PhoneWidget
+    
+    def __init__(self, *args, **kwargs):
+        fields=(
+            forms.IntegerField(),
+            forms.IntegerField())
+        super(PhoneField,self).__init__(fields, *args, **kwargs)
+    
+    def compress(self, data_list):
+        if not data_list:
+            return none         
+        if data_list[0] in EMPTY_VALUES:
+            raise  forms.ValidationError(u'DDD inválido.')
+        if data_list[1] in EMPTY_VALUES:
+            raise  forms.ValidationError(u'Número inválido.')
+        return '%s-%s'  %tuple(data_list)
 
 class SubscriptionForm(forms.ModelForm):
 
-    cpf = BRCPFField(label=_(u'CPF'), required=True, validators=[CpfValidator])
+    cpf = BRCPFField(label=_(u'CPF'), required=True)
+    phone = PhoneField(label=_(u'Telefone'), required=False)
 
     class Meta:
         model = Subscription
